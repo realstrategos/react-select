@@ -17,11 +17,14 @@ class ScrollCaptor extends Component<CaptorProps> {
   isTop: boolean = false;
   scrollTarget: HTMLElement;
   touchStart: number;
-
+  timer: number;
   componentDidMount() {
-    this.startListening(this.scrollTarget);
+    this.timer = this.setTimeout(() => {
+      this.startListening(this.scrollTarget);  
+    }, 0);
   }
   componentWillUnmount() {
+    clearTimeout(this.timer);
     this.stopListening(this.scrollTarget);
   }
   startListening(el: HTMLElement) {
